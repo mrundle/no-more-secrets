@@ -9,10 +9,10 @@
 
 // Argument structure for nms_exec()
 typedef struct {
-	char *src;
-	char *return_opts;
-	int input_cursor_x;
-	int input_cursor_y;
+	const char *src;
+	const char *return_opts;
+	const int input_cursor_x;
+	const int input_cursor_y;
 	bool show_cursor;
 } NmsArgs;
 

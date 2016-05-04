@@ -7,13 +7,17 @@ CFLAGS = -Wextra -Wall
 LDLIBS = -lncurses
 NCURSES_H = /usr/include/ncurses.h
 
-all: nms sneakers
+OBJS = \
+	$(OBJ)/nms.o        \
+	$(OBJ)/screen_buf.o
+	
+all: $(BIN)/nms $(BIN)/sneakers
 
-nms: $(OBJ)/nms.o $(OBJ)/main.o | $(BIN)
-	$(CC) $(CFLAGS) -o $(BIN)/$@ $^ $(LDLIBS)
+$(BIN)/nms: $(OBJ)/main.o $(OBJS) | $(BIN)
+	$(CC) $(CFLAGS) -o $@ $^ $(LDLIBS)
 
-sneakers: $(OBJ)/nms.o $(OBJ)/sneakers.o | $(BIN)
-	$(CC) $(CFLAGS) -o $(BIN)/$@ $^ $(LDLIBS)
+$(BIN)/sneakers: $(OBJ)/sneakers.o $(OBJS)  | $(BIN)
+	$(CC) $(CFLAGS) -o $@ $^ $(LDLIBS)
 
 $(OBJ)/%.o: $(SRC)/%.c | $(OBJ) $(NCURSES_H)
 	$(CC) $(CFLAGS) -o $@ -c $<
